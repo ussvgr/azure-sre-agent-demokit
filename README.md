@@ -56,7 +56,6 @@ graph TB
 | Action Group | アラート通知 | - |
 | App Service Plan | Webアプリホスティング | B1 (Basic) |
 | App Service (Linux) | Webアプリケーション | .NET 10.0 |
-| GitHub Repository | ソースコード管理 | Private |
 
 ### SRE Agentリソースグループ
 
@@ -66,6 +65,11 @@ graph TB
 | Application Insights | SRE Agent用監視 | Log Analytics統合 |
 | User Assigned Identity | SRE Agentマネージド ID | - |
 | Azure SRE Agent | AI駆動のSRE支援 | Preview (eastus2) |
+
+### GitHub
+| リソース | 説明 |
+|---------|------|
+| GitHub Repository | プライベートリポジトリ |
 
 ## 前提条件
 
@@ -96,7 +100,7 @@ terraform init
 terraform plan
 ```
 
-### 4. 適用
+### 4. プロビジョニング
 
 ```bash
 terraform apply
@@ -145,7 +149,7 @@ terraform destroy
 ## 注意事項
 
 1. **Azure SRE Agent** はプレビュー機能です（`Microsoft.App/agents@2025-05-01-preview`）。APIバージョンやスキーマが変更される可能性があります。
-2. SRE Agentは現在 **eastus2** リージョンのみでデプロイ可能です。
+2. SRE Agentは現在限定されたリージョンのみでデプロイ可能です。本リポジトリでは `eastus2` を使用しています。
 3. GitHub認証は `gh auth login` による認証を使用します。
 4. 本番環境では、より高いSKUとセキュリティ設定を検討してください。
 5. App Serviceの継続的デプロイにはBasic tier以上が必要です（Free tierでは不可）。
