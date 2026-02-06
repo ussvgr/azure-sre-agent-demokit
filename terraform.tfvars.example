@@ -1,0 +1,5 @@
+subscription_id               = <Azure subscription ID>
+github_owner                  = <GitHub user name or org name>
+github_repo_name              = "azure-sre-agent-demo"
+resource_group_name           = "rg-sre-agent-demo"    # Resource group for monitored resources
+sre_agent_resource_group_name = "rg-sre-agent"         # Dedicated resource group for SRE Agent

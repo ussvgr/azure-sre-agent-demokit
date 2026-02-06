@@ -1,0 +1,9 @@
+body {
+    font-family: system-ui, sans-serif;
+    padding: 1rem;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
