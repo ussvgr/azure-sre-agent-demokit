@@ -12,35 +12,35 @@
 ```mermaid
 graph TB
     subgraph GitHub
-        REPO[("📦 Repository<br/>(Private)")]
+        REPO[("Repository<br/>(Private)")]
     end
 
     subgraph Azure
-        subgraph RG1["📁 rg-sre-agent-demo"]
-            LAW["📊 Log Analytics<br/>Workspace"]
-            AI["📈 Application<br/>Insights"]
-            ALERT["🔔 Alert Rules"]
-            ASP["⚙️ App Service Plan<br/>(F1 Free)"]
-            APP["🌐 App Service<br/>(.NET 10.0)"]
+        subgraph RG1["rg-sre-agent-demo"]
+            LAW["Log Analytics<br/>Workspace"]
+            AI["Application<br/>Insights"]
+            ALERT["Alert Rules"]
+            ASP["App Service Plan<br/>(F1 Free)"]
+            APP["App Service<br/>(.NET 10.0)"]
         end
 
-        subgraph RG2["📁 rg-sre-agent"]
-            SLAW["📊 Log Analytics<br/>Workspace"]
-            SAI["📈 Application<br/>Insights"]
-            UAI["🔑 User Assigned<br/>Identity"]
-            SRE["🤖 Azure SRE Agent<br/>(Preview)"]
+        subgraph RG2["rg-sre-agent"]
+            SLAW["Log Analytics<br/>Workspace"]
+            SAI["Application<br/>Insights"]
+            UAI["User Assigned<br/>Identity"]
+            SRE["Azure SRE Agent<br/>(Preview)"]
         end
     end
 
     %% Connections
     REPO -->|"CI/CD"| APP
-    APP -->|"テレメトリ"| AI
+    APP -->|"Telemetry"| AI
     AI --> LAW
     AI --> ALERT
-    SRE -->|"監視"| RG1
+    SRE -->|"Monitor"| RG1
     SRE --> SAI
     SAI --> SLAW
-    UAI -.->|"認証"| SRE
+    UAI -.->|"Auth"| SRE
 ```
 
 ## 作成されるリソース
