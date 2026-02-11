@@ -1,18 +1,17 @@
-# App Service Plan - Using Free tier (F1)
+# App Service Plan - Using Free tier (F1) for Windows
 resource "azurerm_service_plan" "main" {
   name                = "asp-${local.name_prefix}-${local.resource_suffix}"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
 
-  # Basic tier required for continuous deployment (Free tier doesn't support it)
-  os_type  = "Linux"
-  sku_name = "B1"
+  os_type  = "Windows"
+  sku_name = "F1"
 
   tags = var.tags
 }
 
-# App Service (Web App)
-resource "azurerm_linux_web_app" "main" {
+# App Service (Windows Web App)
+resource "azurerm_windows_web_app" "main" {
   name                = "app-${local.name_prefix}-${local.resource_suffix}"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
@@ -21,10 +20,10 @@ resource "azurerm_linux_web_app" "main" {
   https_only = true
 
   site_config {
-    always_on = true
+    always_on = false
 
     application_stack {
-      dotnet_version = "10.0"
+      dotnet_version = "v10.0"
     }
   }
 
@@ -39,7 +38,7 @@ resource "azurerm_linux_web_app" "main" {
 
 # GitHub Source Control for continuous deployment
 resource "azurerm_app_service_source_control" "main" {
-  app_id                 = azurerm_linux_web_app.main.id
+  app_id                 = azurerm_windows_web_app.main.id
   repo_url               = github_repository.main.http_clone_url
   branch                 = "main"
   use_manual_integration = false

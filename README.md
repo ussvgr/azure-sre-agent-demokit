@@ -20,7 +20,7 @@ graph TB
             LAW["📊 Log Analytics<br/>Workspace"]
             AI["📈 Application<br/>Insights"]
             ALERT["🔔 Alert Rules"]
-            ASP["⚙️ App Service Plan<br/>(B1)"]
+            ASP["⚙️ App Service Plan<br/>(F1 Free)"]
             APP["🌐 App Service<br/>(.NET 10.0)"]
         end
 
@@ -54,8 +54,8 @@ graph TB
 | Smart Detector Alert Rule | 障害異常検知 | - |
 | Metric Alert Rule | 例外アラート | - |
 | Action Group | アラート通知 | - |
-| App Service Plan | Webアプリホスティング | B1 (Basic) |
-| App Service (Linux) | Webアプリケーション | .NET 10.0 |
+| App Service Plan | Webアプリホスティング | F1 (Free) / Windows |
+| App Service (Windows) | Webアプリケーション | .NET 10.0 |
 
 ### SRE Agentリソースグループ
 
@@ -97,13 +97,13 @@ terraform init
 ### 3. プラン確認
 
 ```bash
-terraform plan
+terraform plan -var-file="terraform.tfvars"
 ```
 
 ### 4. プロビジョニング
 
 ```bash
-terraform apply
+terraform apply -var-file="terraform.tfvars"
 ```
 
 ### 5. 削除
@@ -142,7 +142,7 @@ terraform destroy
 
 この構成はデモ用途向けに設計されています。極力コストを抑える構成にしていますが、若干のコストが発生しますのでご注意ください。
 
-- **App Service**: B1 (Basic tier、Always On有効)
+- **App Service**: F1 (Free tier、Always On無効)
 - **Log Analytics**: 日次クォータ 1GB、30日保持
 - **Application Insights**: 日次キャップ 1GB、サンプリング100%
 
@@ -152,7 +152,7 @@ terraform destroy
 2. SRE Agentは現在限定されたリージョンのみでデプロイ可能です。本リポジトリでは `eastus2` を使用しています。
 3. GitHub認証は `gh auth login` による認証を使用します。
 4. 本番環境では、より高いSKUとセキュリティ設定を検討してください。
-5. App Serviceの継続的デプロイにはBasic tier以上が必要です（Free tierでは不可）。
+5. F1 (Free tier) ではAlways Onが無効のため、一定時間アクセスがないとアプリがアンロードされます。
 
 ## ファイル構成
 
