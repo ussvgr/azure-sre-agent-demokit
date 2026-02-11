@@ -6,7 +6,7 @@ variable "subscription_id" {
 variable "resource_group_name" {
   description = "Name of the resource group for monitored resources"
   type        = string
-  default     = "rg-sre-agent-demo"
+  default     = "rg-sre-agent-demoapp"
 }
 
 variable "sre_agent_resource_group_name" {
@@ -41,7 +41,7 @@ variable "github_owner" {
 variable "github_repo_name" {
   description = "Name of the GitHub repository to create"
   type        = string
-  default     = "azure-sre-agent-demo"
+  default     = "azure-sre-agent-demoapp"
 }
 
 variable "github_push_source_dir" {

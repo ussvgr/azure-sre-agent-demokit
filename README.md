@@ -6,42 +6,10 @@
 
 この構成では、2つのリソースグループを使用してリソースを分離しています：
 
-- **監視対象リソースグループ** (`rg-sre-agent-demo`): SRE Agentが監視するアプリケーションリソース
+- **監視対象リソースグループ** (`rg-sre-agent-demoapp`): SRE Agentが監視するアプリケーションリソース
 - **SRE Agentリソースグループ** (`rg-sre-agent`): SRE Agent専用のリソース
 
-```mermaid
-graph TB
-    subgraph GitHub
-        REPO[("Repository<br/>(Private)")]
-    end
-
-    subgraph Azure
-        subgraph RG1["rg-sre-agent-demo"]
-            LAW["Log Analytics<br/>Workspace"]
-            AI["Application<br/>Insights"]
-            ALERT["Alert Rules"]
-            ASP["App Service Plan<br/>(F1 Free)"]
-            APP["App Service<br/>(.NET 10.0)"]
-        end
-
-        subgraph RG2["rg-sre-agent"]
-            SLAW["Log Analytics<br/>Workspace"]
-            SAI["Application<br/>Insights"]
-            UAI["User Assigned<br/>Identity"]
-            SRE["Azure SRE Agent<br/>(Preview)"]
-        end
-    end
-
-    %% Connections
-    REPO -->|"CI/CD"| APP
-    APP -->|"Telemetry"| AI
-    AI --> LAW
-    AI --> ALERT
-    SRE -->|"Monitor"| RG1
-    SRE --> SAI
-    SAI --> SLAW
-    UAI -.->|"Auth"| SRE
-```
+![構成図](assets/architecture.drawio.png)
 
 ## 作成されるリソース
 
@@ -125,12 +93,12 @@ terraform destroy
 
 | 変数名 | デフォルト | 説明 |
 |--------|-----------|------|
-| `resource_group_name` | `rg-sre-agent-demo` | 監視対象リソースグループ名 |
+| `resource_group_name` | `rg-sre-agent-demoapp` | 監視対象リソースグループ名 |
 | `sre_agent_resource_group_name` | `rg-sre-agent` | SRE Agent用リソースグループ名 |
 | `location` | `japaneast` | Azureリージョン |
 | `project_name` | `sreagent` | プロジェクト名（リソース命名に使用） |
 | `environment` | `dev` | 環境名（dev, staging, prod） |
-| `github_repo_name` | `azure-sre-agent-demo` | GitHubリポジトリ名 |
+| `github_repo_name` | `azure-sre-agent-demoapp` | GitHubリポジトリ名 |
 | `github_push_source_dir` | `./app` | GitHubにプッシュするソースディレクトリ |
 | `github_push_commit_message` | `Initial commit from Terraform` | コミットメッセージ |
 | `tags` | (デフォルトタグ) | リソースに適用するタグ |
